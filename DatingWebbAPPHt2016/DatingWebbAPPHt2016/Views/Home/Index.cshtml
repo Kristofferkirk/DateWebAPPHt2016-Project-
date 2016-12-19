@@ -3,12 +3,15 @@
     //Layout = "MyLayout.cshtml";
 }
 
-<div class="row">
+<div class="row margin-bottom-20">
     <div class="col-md-6 margin-top-20">
         <a href="#" class="btn btn-primary btn-large btn-block">
             <span class="glyphicon glyphicon-user"></span> Profil</a>
         <a href="#" class="btn btn-primary btn-large btn-block">
             <span class="glyphicon glyphicon-envelope"></span> Vänlista
+        </a>
+        <a href="@Url.Action("Details", "ProfileUser")" class="btn btn-primary btn-large btn-block">
+            <span class="glyphicon glyphicon-envelope"></span> Detaljer
         </a>
     </div>
     <div class="col-md-6 margin-top-20"></div>

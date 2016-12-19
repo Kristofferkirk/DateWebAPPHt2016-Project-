@@ -151,10 +151,17 @@ namespace DatingWebbAPPHt2016.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email};
+
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var db = new ApplicationDbContext();
+                    var accountnumber = (123456 + db.UserAccounts.Count().ToString().PadLeft(10, '0'));
+                    var userAccount = new UserAccount {Firstname = model.Firstname, Lastname = model.Lastname, Anvnamn = accountnumber, ApplicationUserId = user.Id };
+                    db.UserAccounts.Add(userAccount);
+                    db.SaveChanges(); // Fix tomorrow
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

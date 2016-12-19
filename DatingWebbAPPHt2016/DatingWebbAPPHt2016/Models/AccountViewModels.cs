@@ -25,6 +25,7 @@ namespace DatingWebbAPPHt2016.Models
 
     public class VerifyCodeViewModel
     {
+        
         [Required]
         public string Provider { get; set; }
 
@@ -64,6 +65,11 @@ namespace DatingWebbAPPHt2016.Models
 
     public class RegisterViewModel
     {
+        [Display(Name = "Förnamn")]
+        public string Firstname { get; set; }
+        [Required]
+        [Display(Name = "Efternamn")]
+        public string Lastname { get; set; }
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

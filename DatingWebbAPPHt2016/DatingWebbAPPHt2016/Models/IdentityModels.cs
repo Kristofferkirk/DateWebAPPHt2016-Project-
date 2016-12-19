@@ -29,5 +29,6 @@ namespace DatingWebbAPPHt2016.Models
         {
             return new ApplicationDbContext();
         }
+        public DbSet<UserAccount> UserAccounts { get; set; }
     }
 }
