@@ -7,18 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DataLayer
+namespace DataBaseLayer
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Bild
+    public partial class BildSet
     {
-        public int BildID { get; set; }
-        public int AnvändareId { get; set; }
-        public int ProfilID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public BildSet()
+        {
+            this.ProfilSet = new HashSet<ProfilSet>();
+        }
     
-        public virtual Användare Användare { get; set; }
-        public virtual Profil Profil { get; set; }
+        public int BildID { get; set; }
+        public string File { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProfilSet> ProfilSet { get; set; }
     }
 }

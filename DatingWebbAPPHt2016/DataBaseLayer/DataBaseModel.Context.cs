@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DataLayer
+namespace DataBaseLayer
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class AnvändareContainer : DbContext
+    public partial class UserDataBaseEntities : DbContext
     {
-        public AnvändareContainer()
-            : base("name=AnvändareContainer")
+        public UserDataBaseEntities()
+            : base("name=UserDataBaseEntities")
         {
         }
     
@@ -25,10 +25,10 @@ namespace DataLayer
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Användare> AnvändareSet { get; set; }
-        public virtual DbSet<Inloggning> InloggningSet { get; set; }
-        public virtual DbSet<Bild> BildSet { get; set; }
-        public virtual DbSet<Profil> ProfilSet { get; set; }
-        public virtual DbSet<Vänlista> VänlistaSet { get; set; }
+        public virtual DbSet<AnvändareSet> AnvändareSet { get; set; }
+        public virtual DbSet<BildSet> BildSet { get; set; }
+        public virtual DbSet<InloggningSet> InloggningSet { get; set; }
+        public virtual DbSet<ProfilSet> ProfilSet { get; set; }
+        public virtual DbSet<VännerSet> VännerSet { get; set; }
     }
 }

@@ -7,18 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DatabasLayer
+namespace DataBaseLayer
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Användare
+    public partial class AnvändareSet
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Användare()
+        public AnvändareSet()
         {
-            this.Profil = new HashSet<Profil>();
-            this.Inloggning = new HashSet<Inloggning>();
+            this.InloggningSet = new HashSet<InloggningSet>();
+            this.ProfilSet = new HashSet<ProfilSet>();
         }
     
         public int AnvändarID { get; set; }
@@ -27,11 +27,11 @@ namespace DatabasLayer
         public string Stad { get; set; }
         public Nullable<int> BildID { get; set; }
         public string PersNR { get; set; }
+        public Nullable<int> Vänner_Id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Profil> Profil { get; set; }
+        public virtual ICollection<InloggningSet> InloggningSet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Inloggning> Inloggning { get; set; }
-        public virtual Vänner Vänner { get; set; }
+        public virtual ICollection<ProfilSet> ProfilSet { get; set; }
     }
 }

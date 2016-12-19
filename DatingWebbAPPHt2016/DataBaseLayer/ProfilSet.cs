@@ -7,12 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DatabasLayer
+namespace DataBaseLayer
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Profil
+    public partial class ProfilSet
     {
         public int Id { get; set; }
         public string Intressen { get; set; }
@@ -21,7 +21,7 @@ namespace DatabasLayer
         public int AnvändarID { get; set; }
         public Nullable<int> BildID { get; set; }
     
-        public virtual Användare Användare { get; set; }
-        public virtual Bild Bild { get; set; }
+        public virtual AnvändareSet AnvändareSet { get; set; }
+        public virtual BildSet BildSet { get; set; }
     }
 }

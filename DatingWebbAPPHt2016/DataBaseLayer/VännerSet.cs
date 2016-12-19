@@ -7,18 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DatabasLayer
+namespace DataBaseLayer
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Inloggning
+    public partial class VännerSet
     {
-        public int LoginID { get; set; }
-        public string AnvändareEmail { get; set; }
-        public string Lösenord { get; set; }
-        public int AnvändarID { get; set; }
-    
-        public virtual Användare Användare { get; set; }
+        public int Id { get; set; }
+        public string Namn { get; set; }
     }
 }
