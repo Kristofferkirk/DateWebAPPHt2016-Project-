@@ -8,23 +8,40 @@ namespace DatingWebbAPPHt2016.Controllers
 {
     public class HomeController : Controller
     {
+
+        // GET // /home/index
+        
         public ActionResult Index()
         {
             return View();
         }
+       
 
+        // GET // /home/about
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            
+                ViewBag.Message = "Detta är början på en sida för bönder som söker fruar! Något stort är på gång här!";
+
+                return View();
+           
+           
+        }
+        [HttpPost]
+        public ActionResult Contact(string message)
+        {
+            //TODO : send message to HQ
+            ViewBag.Message = "Thanks we got your message";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Having trouble? Send us a message";
 
             return View();
         }
+        
     }
 }

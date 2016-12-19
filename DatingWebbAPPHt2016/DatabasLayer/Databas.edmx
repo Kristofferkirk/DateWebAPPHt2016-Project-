@@ -1,0 +1,332 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Databas.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DatabasStoreContainer">
+    <EntitySet Name="AnvändareSet" EntityType="Databas.Store.AnvändareSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BildSet" EntityType="Databas.Store.BildSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="VännerSet" EntityType="Databas.Store.VännerSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProfilSet" EntityType="Databas.Store.ProfilSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="InloggningSet" EntityType="Databas.Store.InloggningSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="AnvändareProfil" Association="Databas.Store.AnvändareProfil">
+      <End Role="Användare" EntitySet="AnvändareSet" />
+      <End Role="Profil" EntitySet="ProfilSet" />
+    </AssociationSet>
+    <AssociationSet Name="AnvändareInloggning" Association="Databas.Store.AnvändareInloggning">
+      <End Role="Användare" EntitySet="AnvändareSet" />
+      <End Role="Inloggning" EntitySet="InloggningSet" />
+    </AssociationSet>
+    <AssociationSet Name="AnvändareVänner" Association="Databas.Store.AnvändareVänner">
+      <End Role="Användare" EntitySet="AnvändareSet" />
+      <End Role="Vänner" EntitySet="VännerSet" />
+    </AssociationSet>
+    <AssociationSet Name="BildProfil" Association="Databas.Store.BildProfil">
+      <End Role="Bild" EntitySet="BildSet" />
+      <End Role="Profil" EntitySet="ProfilSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="AnvändareSet">
+    <Key>
+      <PropertyRef Name="AnvändarID" />
+    </Key>
+    <Property Name="AnvändarID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Förnamn" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Efternamn" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Stad" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="BildID" Type="int" Nullable="true" />
+    <Property Name="PersNR" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Vänner_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="BildSet">
+    <Key>
+      <PropertyRef Name="BildID" />
+    </Key>
+    <Property Name="BildID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="File" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VännerSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Namn" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProfilSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Intressen" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Söker" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Sökbar" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AnvändarID" Type="int" Nullable="false" />
+    <Property Name="BildID" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="InloggningSet">
+    <Key>
+      <PropertyRef Name="LoginID" />
+    </Key>
+    <Property Name="LoginID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AnvändareEmail" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Lösenord" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AnvändarID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="AnvändareProfil">
+    <End Role="Användare" Type="Databas.Store.AnvändareSet" Multiplicity="1" />
+    <End Role="Profil" Type="Databas.Store.ProfilSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Användare">
+        <PropertyRef Name="AnvändarID" />
+      </Principal>
+      <Dependent Role="Profil">
+        <PropertyRef Name="AnvändarID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AnvändareInloggning">
+    <End Role="Användare" Type="Databas.Store.AnvändareSet" Multiplicity="1" />
+    <End Role="Inloggning" Type="Databas.Store.InloggningSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Användare">
+        <PropertyRef Name="AnvändarID" />
+      </Principal>
+      <Dependent Role="Inloggning">
+        <PropertyRef Name="AnvändarID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AnvändareVänner">
+    <End Role="Användare" Type="Databas.Store.AnvändareSet" Multiplicity="*" />
+    <End Role="Vänner" Type="Databas.Store.VännerSet" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Vänner">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Användare">
+        <PropertyRef Name="Vänner_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BildProfil">
+    <End Role="Bild" Type="Databas.Store.BildSet" Multiplicity="0..1" />
+    <End Role="Profil" Type="Databas.Store.ProfilSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bild">
+        <PropertyRef Name="BildID" />
+      </Principal>
+      <Dependent Role="Profil">
+        <PropertyRef Name="BildID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Databas" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DatabasContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AnvändareSet" EntityType="Databas.Användare" />
+          <EntitySet Name="BildSet" EntityType="Databas.Bild" />
+          <EntitySet Name="VännerSet" EntityType="Databas.Vänner" />
+          <EntitySet Name="ProfilSet" EntityType="Databas.Profil" />
+          <AssociationSet Name="AnvändareProfil" Association="Databas.AnvändareProfil">
+            <End Role="Användare" EntitySet="AnvändareSet" />
+            <End Role="Profil" EntitySet="ProfilSet" />
+          </AssociationSet>
+          <EntitySet Name="InloggningSet" EntityType="Databas.Inloggning" />
+          <AssociationSet Name="AnvändareInloggning" Association="Databas.AnvändareInloggning">
+            <End Role="Användare" EntitySet="AnvändareSet" />
+            <End Role="Inloggning" EntitySet="InloggningSet" />
+          </AssociationSet>
+          <AssociationSet Name="AnvändareVänner" Association="Databas.AnvändareVänner">
+            <End Role="Användare" EntitySet="AnvändareSet" />
+            <End Role="Vänner" EntitySet="VännerSet" />
+          </AssociationSet>
+          <AssociationSet Name="BildProfil" Association="Databas.BildProfil">
+            <End Role="Bild" EntitySet="BildSet" />
+            <End Role="Profil" EntitySet="ProfilSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Användare">
+          <Key>
+            <PropertyRef Name="AnvändarID" />
+          </Key>
+          <Property Name="AnvändarID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Förnamn" Type="String" Nullable="false" />
+          <Property Name="Efternamn" Type="String" Nullable="false" />
+          <Property Name="Stad" Type="String" Nullable="false" />
+          <NavigationProperty Name="Profil" Relationship="Databas.AnvändareProfil" FromRole="Användare" ToRole="Profil" />
+          <NavigationProperty Name="Inloggning" Relationship="Databas.AnvändareInloggning" FromRole="Användare" ToRole="Inloggning" />
+          <Property Name="BildID" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="Vänner" Relationship="Databas.AnvändareVänner" FromRole="Användare" ToRole="Vänner" />
+          <Property Name="PersNR" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bild">
+          <Key>
+            <PropertyRef Name="BildID" />
+          </Key>
+          <Property Name="BildID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="File" Type="String" Nullable="false" />
+          <NavigationProperty Name="Profil" Relationship="Databas.BildProfil" FromRole="Bild" ToRole="Profil" />
+        </EntityType>
+        <EntityType Name="Vänner">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Namn" Type="String" Nullable="false" />
+          <NavigationProperty Name="Användare" Relationship="Databas.AnvändareVänner" FromRole="Vänner" ToRole="Användare" />
+        </EntityType>
+        <EntityType Name="Profil">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Intressen" Type="String" Nullable="false" />
+          <Property Name="Söker" Type="String" Nullable="false" />
+          <Property Name="Sökbar" Type="String" Nullable="false" />
+          <NavigationProperty Name="Användare" Relationship="Databas.AnvändareProfil" FromRole="Profil" ToRole="Användare" />
+          <Property Name="AnvändarID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bild" Relationship="Databas.BildProfil" FromRole="Profil" ToRole="Bild" />
+          <Property Name="BildID" Type="Int32" Nullable="true" />
+        </EntityType>
+        <Association Name="AnvändareProfil">
+          <End Type="Databas.Användare" Role="Användare" Multiplicity="1" />
+          <End Type="Databas.Profil" Role="Profil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Användare">
+              <PropertyRef Name="AnvändarID" />
+            </Principal>
+            <Dependent Role="Profil">
+              <PropertyRef Name="AnvändarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Inloggning">
+          <Key>
+            <PropertyRef Name="LoginID" />
+          </Key>
+          <Property Name="LoginID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AnvändareEmail" Type="String" Nullable="false" />
+          <Property Name="Lösenord" Type="String" Nullable="false" />
+          <NavigationProperty Name="Användare" Relationship="Databas.AnvändareInloggning" FromRole="Inloggning" ToRole="Användare" />
+          <Property Name="AnvändarID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="AnvändareInloggning">
+          <End Type="Databas.Användare" Role="Användare" Multiplicity="1" />
+          <End Type="Databas.Inloggning" Role="Inloggning" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Användare">
+              <PropertyRef Name="AnvändarID" />
+            </Principal>
+            <Dependent Role="Inloggning">
+              <PropertyRef Name="AnvändarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AnvändareVänner">
+          <End Type="Databas.Användare" Role="Användare" Multiplicity="*" />
+          <End Type="Databas.Vänner" Role="Vänner" Multiplicity="0..1" />
+        </Association>
+        <Association Name="BildProfil">
+          <End Type="Databas.Bild" Role="Bild" Multiplicity="0..1" />
+          <End Type="Databas.Profil" Role="Profil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bild">
+              <PropertyRef Name="BildID" />
+            </Principal>
+            <Dependent Role="Profil">
+              <PropertyRef Name="BildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DatabasStoreContainer" CdmEntityContainer="DatabasContainer">
+    <EntitySetMapping Name="AnvändareSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Databas.Användare)">
+        <MappingFragment StoreEntitySet="AnvändareSet">
+          <ScalarProperty Name="AnvändarID" ColumnName="AnvändarID" />
+          <ScalarProperty Name="Förnamn" ColumnName="Förnamn" />
+          <ScalarProperty Name="Efternamn" ColumnName="Efternamn" />
+          <ScalarProperty Name="Stad" ColumnName="Stad" />
+          <ScalarProperty Name="BildID" ColumnName="BildID" />
+          <ScalarProperty Name="PersNR" ColumnName="PersNR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BildSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Databas.Bild)">
+        <MappingFragment StoreEntitySet="BildSet">
+          <ScalarProperty Name="BildID" ColumnName="BildID" />
+          <ScalarProperty Name="File" ColumnName="File" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VännerSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Databas.Vänner)">
+        <MappingFragment StoreEntitySet="VännerSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Namn" ColumnName="Namn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProfilSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Databas.Profil)">
+        <MappingFragment StoreEntitySet="ProfilSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Intressen" ColumnName="Intressen" />
+          <ScalarProperty Name="Söker" ColumnName="Söker" />
+          <ScalarProperty Name="Sökbar" ColumnName="Sökbar" />
+          <ScalarProperty Name="AnvändarID" ColumnName="AnvändarID" />
+          <ScalarProperty Name="BildID" ColumnName="BildID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InloggningSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Databas.Inloggning)">
+        <MappingFragment StoreEntitySet="InloggningSet">
+          <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+          <ScalarProperty Name="AnvändareEmail" ColumnName="AnvändareEmail" />
+          <ScalarProperty Name="Lösenord" ColumnName="Lösenord" />
+          <ScalarProperty Name="AnvändarID" ColumnName="AnvändarID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AnvändareVänner" TypeName="Databas.AnvändareVänner" StoreEntitySet="AnvändareSet">
+      <EndProperty Name="Vänner">
+        <ScalarProperty Name="Id" ColumnName="Vänner_Id" />
+      </EndProperty>
+      <EndProperty Name="Användare">
+        <ScalarProperty Name="AnvändarID" ColumnName="AnvändarID" />
+      </EndProperty>
+      <Condition ColumnName="Vänner_Id" IsNull="false" />
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
