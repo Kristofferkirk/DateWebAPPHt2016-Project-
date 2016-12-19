@@ -3,27 +3,15 @@
     //Layout = "MyLayout.cshtml";
 }
 
-<div class="jumbotron">
-    <h1>Vi har bönder som söker fruar</h1>
-    <p class="lead">Vi är den första dejting siten för Bönder som söker fruar, inspirerat från TV-showen 
-    som tagit världen med storm!</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Powered by ASP.NET &raquo;</a></p>
-</div>
-
 <div class="row">
-    <div class="col-md-4">
-        <h2>Börja idag!</h2>
-        <p>
-            Starta ett konto för att komma ingång!
-        </p>
-        <p>@Html.ActionLink("Registrera", "Register", "Account", null, new { @class = "btn btn-default" })</p>
+    <div class="col-md-6 margin-top-20">
+        <a href="#" class="btn btn-primary btn-large btn-block">
+            <span class="glyphicon glyphicon-user"></span> Profil</a>
+        <a href="#" class="btn btn-primary btn-large btn-block">
+            <span class="glyphicon glyphicon-envelope"></span> Vänlista
+        </a>
     </div>
-    <div class="col-md-4">
-        <h2>Logga in</h2>
-        <p>Är du redan medlem? Logga in här</p>
-        <p>@Html.ActionLink("Logga in", "Login", "Account", null, new { @class = "btn btn-default" })</p>
-    </div>
-    
+    <div class="col-md-6 margin-top-20"></div>
 </div>
 
 You are using @Request.Browser.Browser, and thats ok!
