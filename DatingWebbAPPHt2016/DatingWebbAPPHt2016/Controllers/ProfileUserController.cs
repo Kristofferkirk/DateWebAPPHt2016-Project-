@@ -18,6 +18,7 @@ namespace DatingWebbAPPHt2016.Controllers
         // GET: ProfileUser/Details
         public ActionResult Details()
         {
+            //Tests
             var userAccount = new UserAccount { Id = 123, Firstname = "Kristoffer", Lastname = "Kirkerud", Anvnamn = "krikih151" };
 
 

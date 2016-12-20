@@ -10,7 +10,8 @@ namespace DatingWebbAPPHt2016.Controllers
     {
         // GET: Profile
         // Handler for profiles in the application
-        public ActionResult Index()
+        // TODO: Hitta ett sätt att vi en profil sida
+        public ActionResult GetProfile()
         {
             return View();
         }

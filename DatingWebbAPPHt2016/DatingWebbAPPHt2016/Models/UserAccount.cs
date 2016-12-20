@@ -9,12 +9,13 @@ namespace DatingWebbAPPHt2016.Models
 {
     public class UserAccount
     {
+        //Class for user account information, still needs to be configured
         public int Id { get; set; }
 
         [Required]
         [StringLength(10)]
         [Column(TypeName ="varchar")]
-        [RegularExpression("^[0-9]{6,10}$", ErrorMessage = "Account # must be between 6 and 10 digits.")]
+        [RegularExpression("^[0-9]{6,10}$", ErrorMessage = "Account # must be between 6 and 10 digits.")] // Checks if account number is between 6-10 digits
         [Display(Name="Användarnamn")]
         public string Anvnamn { get; set; }
 
@@ -25,7 +26,12 @@ namespace DatingWebbAPPHt2016.Models
         [Required]
         [Display(Name = "Efternamn")]
         public string Lastname { get; set; }
-
+        [Required]
+        [Display(Name = "Stad")]
+        public string city { get; set; }
+        [Required]
+        [Display(Name = "PersonNummer")]
+        public string persNr { get; set; }
         public string Name
         {
             get
@@ -34,6 +40,11 @@ namespace DatingWebbAPPHt2016.Models
             }
         }
         public virtual ApplicationUser User { get; set; }
+        
+
+        [Required]
         public string ApplicationUserId { get; set; }
+        public virtual ICollection<Profile> Profiles { get; set; } //Samling av profiler för att kolla igenom
+
     }
 }
