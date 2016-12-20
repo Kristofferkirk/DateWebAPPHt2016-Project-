@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DataBaseLayer
+namespace DataAccessLayer
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class UserDataBaseEntities : DbContext
+    public partial class DateProfileDBEntities : DbContext
     {
-        public UserDataBaseEntities()
-            : base("name=UserDataBaseEntities")
+        public DateProfileDBEntities()
+            : base("name=DateProfileDBEntities")
         {
         }
     

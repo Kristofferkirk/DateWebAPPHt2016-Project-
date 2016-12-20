@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DataBaseLayer
+namespace DataAccessLayer
 {
     using System;
     using System.Collections.Generic;
@@ -33,5 +33,6 @@ namespace DataBaseLayer
         public virtual ICollection<InloggningSet> InloggningSet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProfilSet> ProfilSet { get; set; }
+        public virtual VännerSet VännerSet { get; set; }
     }
 }

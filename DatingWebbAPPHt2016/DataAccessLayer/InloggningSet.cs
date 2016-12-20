@@ -7,21 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DataBaseLayer
+namespace DataAccessLayer
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class ProfilSet
+    public partial class InloggningSet
     {
-        public int Id { get; set; }
-        public string Intressen { get; set; }
-        public string Söker { get; set; }
-        public string Sökbar { get; set; }
+        public int LoginID { get; set; }
+        public string AnvändareEmail { get; set; }
+        public string Lösenord { get; set; }
         public int AnvändarID { get; set; }
-        public Nullable<int> BildID { get; set; }
     
         public virtual AnvändareSet AnvändareSet { get; set; }
-        public virtual BildSet BildSet { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="UserDataBaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="DateProfileDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AnvändareSet">
           <Key>
             <PropertyRef Name="AnvändarID" />
@@ -75,6 +75,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AnvändareVänner">
+          <End Role="VännerSet" Type="Self.VännerSet" Multiplicity="0..1" />
+          <End Role="AnvändareSet" Type="Self.AnvändareSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VännerSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AnvändareSet">
+              <PropertyRef Name="Vänner_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_BildProfil">
           <End Role="BildSet" Type="Self.BildSet" Multiplicity="0..1" />
           <End Role="ProfilSet" Type="Self.ProfilSet" Multiplicity="*" />
@@ -87,7 +99,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="UserDataBaseModelStoreContainer">
+        <EntityContainer Name="DateProfileDBModelStoreContainer">
           <EntitySet Name="AnvändareSet" EntityType="Self.AnvändareSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BildSet" EntityType="Self.BildSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InloggningSet" EntityType="Self.InloggningSet" Schema="dbo" store:Type="Tables" />
@@ -101,6 +113,10 @@
             <End Role="AnvändareSet" EntitySet="AnvändareSet" />
             <End Role="ProfilSet" EntitySet="ProfilSet" />
           </AssociationSet>
+          <AssociationSet Name="FK_AnvändareVänner" Association="Self.FK_AnvändareVänner">
+            <End Role="VännerSet" EntitySet="VännerSet" />
+            <End Role="AnvändareSet" EntitySet="AnvändareSet" />
+          </AssociationSet>
           <AssociationSet Name="FK_BildProfil" Association="Self.FK_BildProfil">
             <End Role="BildSet" EntitySet="BildSet" />
             <End Role="ProfilSet" EntitySet="ProfilSet" />
@@ -110,7 +126,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="UserDataBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="DateProfileDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="AnvändareSet">
           <Key>
             <PropertyRef Name="AnvändarID" />
@@ -124,6 +140,7 @@
           <Property Name="Vänner_Id" Type="Int32" />
           <NavigationProperty Name="InloggningSet" Relationship="Self.FK_AnvändareInloggning" FromRole="AnvändareSet" ToRole="InloggningSet" />
           <NavigationProperty Name="ProfilSet" Relationship="Self.FK_AnvändareProfil" FromRole="AnvändareSet" ToRole="ProfilSet" />
+          <NavigationProperty Name="VännerSet" Relationship="Self.FK_AnvändareVänner" FromRole="AnvändareSet" ToRole="VännerSet" />
         </EntityType>
         <EntityType Name="BildSet">
           <Key>
@@ -162,6 +179,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Namn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AnvändareSet" Relationship="Self.FK_AnvändareVänner" FromRole="VännerSet" ToRole="AnvändareSet" />
         </EntityType>
         <Association Name="FK_AnvändareInloggning">
           <End Role="AnvändareSet" Type="Self.AnvändareSet" Multiplicity="1" />
@@ -187,6 +205,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AnvändareVänner">
+          <End Role="VännerSet" Type="Self.VännerSet" Multiplicity="0..1" />
+          <End Role="AnvändareSet" Type="Self.AnvändareSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VännerSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AnvändareSet">
+              <PropertyRef Name="Vänner_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_BildProfil">
           <End Role="BildSet" Type="Self.BildSet" Multiplicity="0..1" />
           <End Role="ProfilSet" Type="Self.ProfilSet" Multiplicity="*" />
@@ -199,7 +229,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="UserDataBaseEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="DateProfileDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AnvändareSet" EntityType="Self.AnvändareSet" />
           <EntitySet Name="BildSet" EntityType="Self.BildSet" />
           <EntitySet Name="InloggningSet" EntityType="Self.InloggningSet" />
@@ -213,6 +243,10 @@
             <End Role="AnvändareSet" EntitySet="AnvändareSet" />
             <End Role="ProfilSet" EntitySet="ProfilSet" />
           </AssociationSet>
+          <AssociationSet Name="FK_AnvändareVänner" Association="Self.FK_AnvändareVänner">
+            <End Role="VännerSet" EntitySet="VännerSet" />
+            <End Role="AnvändareSet" EntitySet="AnvändareSet" />
+          </AssociationSet>
           <AssociationSet Name="FK_BildProfil" Association="Self.FK_BildProfil">
             <End Role="BildSet" EntitySet="BildSet" />
             <End Role="ProfilSet" EntitySet="ProfilSet" />
@@ -223,9 +257,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="UserDataBaseModelStoreContainer" CdmEntityContainer="UserDataBaseEntities">
+        <EntityContainerMapping StorageEntityContainer="DateProfileDBModelStoreContainer" CdmEntityContainer="DateProfileDBEntities">
           <EntitySetMapping Name="AnvändareSet">
-            <EntityTypeMapping TypeName="UserDataBaseModel.AnvändareSet">
+            <EntityTypeMapping TypeName="DateProfileDBModel.AnvändareSet">
               <MappingFragment StoreEntitySet="AnvändareSet">
                 <ScalarProperty Name="AnvändarID" ColumnName="AnvändarID" />
                 <ScalarProperty Name="Förnamn" ColumnName="Förnamn" />
@@ -238,7 +272,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="BildSet">
-            <EntityTypeMapping TypeName="UserDataBaseModel.BildSet">
+            <EntityTypeMapping TypeName="DateProfileDBModel.BildSet">
               <MappingFragment StoreEntitySet="BildSet">
                 <ScalarProperty Name="BildID" ColumnName="BildID" />
                 <ScalarProperty Name="File" ColumnName="File" />
@@ -246,7 +280,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="InloggningSet">
-            <EntityTypeMapping TypeName="UserDataBaseModel.InloggningSet">
+            <EntityTypeMapping TypeName="DateProfileDBModel.InloggningSet">
               <MappingFragment StoreEntitySet="InloggningSet">
                 <ScalarProperty Name="LoginID" ColumnName="LoginID" />
                 <ScalarProperty Name="AnvändareEmail" ColumnName="AnvändareEmail" />
@@ -256,7 +290,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProfilSet">
-            <EntityTypeMapping TypeName="UserDataBaseModel.ProfilSet">
+            <EntityTypeMapping TypeName="DateProfileDBModel.ProfilSet">
               <MappingFragment StoreEntitySet="ProfilSet">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Intressen" ColumnName="Intressen" />
@@ -268,7 +302,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="VännerSet">
-            <EntityTypeMapping TypeName="UserDataBaseModel.VännerSet">
+            <EntityTypeMapping TypeName="DateProfileDBModel.VännerSet">
               <MappingFragment StoreEntitySet="VännerSet">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Namn" ColumnName="Namn" />

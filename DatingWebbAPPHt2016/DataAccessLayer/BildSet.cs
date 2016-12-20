@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DataBaseLayer
+namespace DataAccessLayer
 {
     using System;
     using System.Collections.Generic;
